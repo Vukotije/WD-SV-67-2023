@@ -103,7 +103,7 @@
               <ul class="list-group list-group-flush lead">
                 <li class="list-inline-item">
                   <span class="fw-bolder">Organizator:</span><br />
-                  <h1 class="fw-bold">BeoArt Fest</h1>
+                  <h1 class="fw-bold" id="organisatorName"></h1>
                 </li>
 
                 <hr class="my-1" />
@@ -126,7 +126,7 @@
                   </div>
                   <div class="ms-2">
                     <span class="fw-bolder">Adresa:</span><br />
-                    <h5 class="fw-bold">Knez Mihailova 48, Beograd, 11000</h5>
+                    <h5 class="fw-bold" id="organisatorAdress"></h5>
                   </div>
                 </li>
 
@@ -150,7 +150,7 @@
                   </div>
                   <div class="ms-2">
                     <span class="fw-bolder">Godina osnivanja:</span><br />
-                    <h5 class="fw-bold">2015</h5>
+                    <h5 class="fw-bold" id="organisatorFoundingYear"></h5>
                   </div>
                 </li>
 
@@ -174,7 +174,7 @@
                   </div>
                   <div class="ms-2">
                     <span class="fw-bolder">Kontakt telefon:</span><br />
-                    <h5 class="fw-bold">011/3042-568</h5>
+                    <h5 class="fw-bold" id="organisatorPhone"></h5>
                   </div>
                 </li>
 
@@ -198,7 +198,7 @@
                   </div>
                   <div class="ms-2">
                     <span class="fw-bolder">Email:</span><br />
-                    <h5 class="fw-bold">kontakt@beoartfest.rs</h5>
+                    <h5 class="fw-bold" id="organisatorEmail"></h5>
                   </div>
                 </li>
               </ul>
@@ -206,10 +206,12 @@
           </div>
 
           <div class="col">
-            <div class="bg-light rounded-3 p-1">
+            <div class="bg-light rounded-3 p-1 ratio ratio-4x3">
               <img
-                src="https://i.imgur.com/OV15WM6.jpeg"
-                class="fill w-100 rounded-3"
+                id="organisatorLogo"
+                src=""
+                class="w-100 h-100 rounded-3 p-1"
+                style="object-fit: cover"
               />
             </div>
           </div>
@@ -256,7 +258,7 @@
       </div>
     </section>
 
-    <!-- TODO dinamicly => Festival cards -->
+    <!-- Festival cards -->
     <section id="festivali" class="text-dark">
       <div class="container-fluid">
         <div class="row">
@@ -265,8 +267,11 @@
           </div>
         </div>
 
-        <div class="row row-cols-1 row-cols-md-2 row-cols-xl-3 m-5">
-          <div class="col mb-4">
+        <div
+          class="row row-cols-1 row-cols-md-2 row-cols-xl-3 m-5"
+          id="festivalRow"
+        >
+          <!-- <div class="col mb-4">
             <div class="card border-4 rounded-3">
               <a href="festival.html">
                 <div class="ratio ratio-16x9">
@@ -275,76 +280,15 @@
                     src="https://i.imgur.com/nIhAjPQ.jpeg"
                   />
                 </div>
-                <div class="p-3 fw-normal text-center">
-                  <h4>Festival Ostrvske Muzike</h4>
+                <div
+                  class="p-3 fw-normal text-center d-flex align-items-center justify-content-center"
+                  style="min-height: 100px"
+                >
+                  <h4>${festival.naziv}</h4>
                 </div>
               </a>
             </div>
-          </div>
-
-          <div class="col mb-4">
-            <div class="card border-4 rounded-3">
-              <a href="festival.html">
-                <div class="ratio ratio-16x9">
-                  <img
-                    class="card-img-top w-100 border-bottom-thick-pink"
-                    src="https://i.imgur.com/nIhAjPQ.jpeg"
-                  />
-                </div>
-                <div class="p-3 fw-normal text-center">
-                  <h4>Festival Ostrvske Muzike</h4>
-                </div>
-              </a>
-            </div>
-          </div>
-
-          <div class="col mb-4">
-            <div class="card border-4 rounded-3">
-              <a href="festival.html">
-                <div class="ratio ratio-16x9">
-                  <img
-                    class="card-img-top w-100 border-bottom-thick-pink"
-                    src="https://i.imgur.com/nIhAjPQ.jpeg"
-                  />
-                </div>
-                <div class="p-3 fw-normal text-center">
-                  <h4>Festival Ostrvske Muzike</h4>
-                </div>
-              </a>
-            </div>
-          </div>
-
-          <div class="col mb-4">
-            <div class="card border-4 rounded-3">
-              <a href="festival.html">
-                <div class="ratio ratio-16x9">
-                  <img
-                    class="card-img-top w-100 border-bottom-thick-pink"
-                    src="https://i.imgur.com/nIhAjPQ.jpeg"
-                  />
-                </div>
-                <div class="p-3 fw-normal text-center">
-                  <h4>Festival Ostrvske Muzike</h4>
-                </div>
-              </a>
-            </div>
-          </div>
-
-          <div class="col mb-4">
-            <div class="card border-4 rounded-3">
-              <a href="festival.html">
-                <div class="ratio ratio-16x9">
-                  <img
-                    class="card-img-top w-100 border-bottom-thick-pink"
-                    src="https://i.imgur.com/nIhAjPQ.jpeg"
-                  />
-                </div>
-                <div class="p-3 fw-normal text-center">
-                  <h4>Festival Ostrvske Muzike</h4>
-                </div>
-              </a>
-            </div>
-          </div>
+          </div> -->
         </div>
       </div>
     </section>
@@ -401,5 +345,6 @@
         </div>
       </footer>
     </section>
+    <script src="organisator.js"></script>
   </body>
 </html>

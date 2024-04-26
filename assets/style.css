@@ -113,12 +113,6 @@ body {
   border-bottom: 4px solid rgb(204, 46, 120);
 }
 
-.carousel-item img {
-  height: 100%;
-  width: 100%;
-  object-fit: fill;
-}
-
 table .dropdown-toggle::after {
   display: none;
 }

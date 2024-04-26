@@ -103,7 +103,7 @@
               <ul class="list-group list-group-flush lead">
                 <li class="list-inline-item">
                   <span class="fw-bolder">Festival:</span><br />
-                  <h1 class="fw-bold">Festival Ostrvske Muzike</h1>
+                  <h1 class="fw-bold" id="festivalName"></h1>
                 </li>
 
                 <hr class="my-1" />
@@ -111,26 +111,10 @@
                 <li
                   class="list-inline-item d-flex align-items-center justify-content-start"
                 >
-                  <div>
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      height="2em"
-                      fill="currentColor"
-                      class="bi bi-music-note-beamed pe-2"
-                      viewBox="0 0 16 16"
-                    >
-                      <path
-                        d="M6 13c0 1.105-1.12 2-2.5 2S1 14.105 1 13s1.12-2 2.5-2 2.5.896 2.5 2m9-2c0 1.105-1.12 2-2.5 2s-2.5-.895-2.5-2 1.12-2 2.5-2 2.5.895 2.5 2"
-                      />
-                      <path fill-rule="evenodd" d="M14 11V2h1v9zM6 3v10H5V3z" />
-                      <path
-                        d="M5 2.905a1 1 0 0 1 .9-.995l8-.8a1 1 0 0 1 1.1.995V3L5 4z"
-                      />
-                    </svg>
-                  </div>
+                  <div id="festivalTypeIconContainer"></div>
                   <div class="ms-2">
                     <span class="fw-bolder">Tip:</span><br />
-                    <h5 class="fw-bold">Muzički</h5>
+                    <h5 class="fw-bold" id="festivalType"></h5>
                   </div>
                 </li>
 
@@ -139,22 +123,10 @@
                 <li
                   class="list-inline-item d-flex align-items-center justify-content-start"
                 >
-                  <div>
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      height="2em"
-                      fill="currentColor"
-                      class="bi bi-airplane pe-2"
-                      viewBox="0 0 16 16"
-                    >
-                      <path
-                        d="M6.428 1.151C6.708.591 7.213 0 8 0s1.292.592 1.572 1.151C9.861 1.73 10 2.431 10 3v3.691l5.17 2.585a1.5 1.5 0 0 1 .83 1.342V12a.5.5 0 0 1-.582.493l-5.507-.918-.375 2.253 1.318 1.318A.5.5 0 0 1 10.5 16h-5a.5.5 0 0 1-.354-.854l1.319-1.318-.376-2.253-5.507.918A.5.5 0 0 1 0 12v-1.382a1.5 1.5 0 0 1 .83-1.342L6 6.691V3c0-.568.14-1.271.428-1.849m.894.448C7.111 2.02 7 2.569 7 3v4a.5.5 0 0 1-.276.447l-5.448 2.724a.5.5 0 0 0-.276.447v.792l5.418-.903a.5.5 0 0 1 .575.41l.5 3a.5.5 0 0 1-.14.437L6.708 15h2.586l-.647-.646a.5.5 0 0 1-.14-.436l.5-3a.5.5 0 0 1 .576-.411L15 11.41v-.792a.5.5 0 0 0-.276-.447L9.276 7.447A.5.5 0 0 1 9 7V3c0-.432-.11-.979-.322-1.401C8.458 1.159 8.213 1 8 1s-.458.158-.678.599"
-                      />
-                    </svg>
-                  </div>
+                  <div id="festivalTransportIconContainer"></div>
                   <div class="ms-2">
                     <span class="fw-bolder">Prevoz:</span><br />
-                    <h5 class="fw-bold">Avion</h5>
+                    <h5 class="fw-bold" id="festivalTransport"></h5>
                   </div>
                 </li>
 
@@ -179,7 +151,7 @@
                   </div>
                   <div class="ms-2">
                     <span class="fw-bolder">Cena:</span><br />
-                    <h5 class="fw-bold">111256</h5>
+                    <h5 class="fw-bold" id="festivalPrice"></h5>
                   </div>
                 </li>
 
@@ -203,7 +175,7 @@
                   </div>
                   <div class="ms-2">
                     <span class="fw-bolder">Max Osoba:</span><br />
-                    <h5 class="fw-bold">33</h5>
+                    <h5 class="fw-bold" id="festivalMaxPersons"></h5>
                   </div>
                 </li>
 
@@ -230,63 +202,58 @@
                   </div>
                   <div class="ms-2">
                     <span class="fw-bolder">Opis:</span><br />
-                    <h6 class="fw-bold">
-                      Zamislite festival gdje pulsirajući ritmovi i melodije
-                      ispunjavaju vazduh na pozadini tropskog raja. Festival
-                      Ostrvske Muzike na Zanzibaru mesto je gde se svetski
-                      DJ-evi i umetnici susreću, stvarajući nezaboravno iskustvo
-                      pod zvezdama.
-                    </h6>
+                    <h6 class="fw-bold" id="festivalDescription"></h6>
                   </div>
                 </li>
               </ul>
             </div>
           </div>
 
-          <!-- Slike galerija -->
+          <!-- Slike carousel -->
           <div class="col">
-            <div class="rounded-3 p-1 w-100" id="fest-img-container">
+            <div class="rounded-3 p-2" id="fest-img-container">
               <div
-                class="row d-flex justify-content-center align-items-center g-2"
+                id="carouselExample"
+                class="carousel slide"
+                data-bs-ride="carousel"
               >
-                <div class="col-lg-4">
-                  <img
-                    src="https://i.imgur.com/nIhAjPQ.jpeg"
-                    class="w-100 rounded-3 mb-1"
-                  />
-
-                  <img
-                    src="https://i.imgur.com/XJRsDJZ.jpegp"
-                    class="w-100 rounded-3 mb-1"
-                  />
+                <div class="carousel-inner" id="picturesCarouselContainer">
+                  <!-- <div class="carousel-item active ratio ratio-4x3">
+                    <img
+                      src="https://i.imgur.com/nIhAjPQ.jpeg"
+                      class="d-block w-100 rounded-3"
+                      style="object-fit: cover; height: 100%"
+                    />
+                  </div> -->
                 </div>
-
-                <div class="col-lg-4">
-                  <img
-                    src="https://i.imgur.com/CAx5RSt.jpeg"
-                    class="w-100 rounded-3 mb-1"
-                  />
-
-                  <img
-                    src="https://i.imgur.com/WdrdkfY.jpeg"
-                    class="w-100 rounded-3 mb-1"
-                  />
-                </div>
-
-                <div class="col-lg-4">
-                  <img
-                    src="https://i.imgur.com/ZGXCGm0.jpeg"
-                    class="w-100 rounded-3 mb-1"
-                  />
-
-                  <img
-                    src="https://i.imgur.com/pN3ugei.jpeg"
-                    class="w-100 rounded-3 mb-1"
-                  />
-                </div>
+                <button
+                  class="carousel-control-prev"
+                  type="button"
+                  data-bs-target="#carouselExample"
+                  data-bs-slide="prev"
+                >
+                  <span
+                    class="carousel-control-prev-icon"
+                    aria-hidden="true"
+                  ></span>
+                  <span class="visually-hidden">Previous</span>
+                </button>
+                <button
+                  class="carousel-control-next"
+                  type="button"
+                  data-bs-target="#carouselExample"
+                  data-bs-slide="next"
+                >
+                  <span
+                    class="carousel-control-next-icon"
+                    aria-hidden="true"
+                  ></span>
+                  <span class="visually-hidden">Next</span>
+                </button>
               </div>
             </div>
           </div>
+          <!--  -->
         </div>
       </div>
     </section>
@@ -343,5 +310,6 @@
         </div>
       </footer>
     </section>
+    <script src="festival.js"></script>
   </body>
 </html>
