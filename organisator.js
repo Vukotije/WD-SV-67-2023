@@ -70,9 +70,9 @@ function getAllOrganisatorsFestivals(festivalsCode) {
   request.onreadystatechange = function () {
     if (this.readyState == 4) {
       if (this.status == 200) {
-        cleanFestivalsRow();
         let festivals = JSON.parse(request.responseText);
         console.log(festivals);
+        festivalRow.innerHTML = "";
 
         for (let id in festivals) {
           let festival = festivals[id];
@@ -104,8 +104,4 @@ function getAllOrganisatorsFestivals(festivalsCode) {
   };
   request.open("GET", `${fireBaseUrl}festivali/${festivalsCode}.json`);
   request.send();
-}
-
-function cleanFestivalsRow() {
-  festivalRow.innerHTML = "";
 }

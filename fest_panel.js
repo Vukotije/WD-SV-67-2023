@@ -10,6 +10,7 @@ function getOrganisatorsTableData() {
       if (this.status == 200) {
         let organisators = JSON.parse(request.responseText);
         console.log(organisators);
+        organisatorsTableData.innerHTML = "";
 
         for (let id in organisators) {
           let organisator = organisators[id];

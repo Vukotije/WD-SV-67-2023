@@ -10,6 +10,7 @@ function getUsersTableData() {
       if (this.status == 200) {
         let users = JSON.parse(request.responseText);
         console.log(users);
+        usersTableData.innerHTML = "";
 
         for (let id in users) {
           let user = users[id];
@@ -29,7 +30,7 @@ function getUsersTableData() {
                         <button
                         class="btn btn-link dropdown-toggle"
                         type="button"
-                        id="dropdownMenuButton"
+                        id="dropdownUserMenuButton"
                         data-bs-toggle="dropdown"
                         aria-expanded="false"
                         >
@@ -50,19 +51,19 @@ function getUsersTableData() {
                         </button>
                         <ul
                         class="dropdown-menu p-0"
-                        aria-labelledby="dropdownMenuButton"
+                        aria-labelledby="dropdownUserMenuButton"
                         >
                         <li>
                             <a
                             class="dropdown-item"
                             data-bs-toggle="modal"
-                            data-bs-target="#editModal"
+                            data-bs-target="#editUserModal"
                             href="#"
-                            >Edit</a
+                            >Izmeni Podatke Korsinika</a
                             >
                         </li>
                         <li>
-                            <a class="dropdown-item text-danger" href="#">Delete</a>
+                            <a class="dropdown-item text-danger" href="#">Obriši Korisnika</a>
                         </li>
                         </ul>
                     </div>

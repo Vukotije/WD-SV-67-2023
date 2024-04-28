@@ -29,6 +29,7 @@
       crossorigin="anonymous"
       defer
     ></script>
+    <script src="login_register.js" defer></script>
   </head>
 
   <body class="glavno-polje">
@@ -79,18 +80,294 @@
                 >FestPanel</a
               >
             </li>
-            <li>
-              <button class="btn btn-orange me-2" type="button">Prijava</button>
+            <li class="" id="liLoginButton">
+              <button
+                class="btn btn-orange me-2"
+                type="button"
+                data-bs-toggle="modal"
+                data-bs-target="#loginUserModal"
+                id="loginButton"
+              >
+                Prijava
+              </button>
             </li>
-            <li>
-              <button class="btn btn-bublue m-md-0 mt-2 me-2" type="button">
+            <li class="" id="liRegisterButton">
+              <button
+                class="btn btn-bublue m-md-0 mt-2 me-2"
+                type="button"
+                data-bs-toggle="modal"
+                data-bs-target="#RegisterUserModal"
+                id="registerButton"
+              >
                 Registracija
               </button>
+            </li>
+            <li class="" id="liLogoutButton">
+              <button
+                class="btn btn-pink me-2"
+                type="button"
+                id="logoutButton"
+              ></button>
             </li>
           </ul>
         </div>
       </div>
     </nav>
+
+    <!-- Registration modal -->
+    <div
+      class="modal fade"
+      id="RegisterUserModal"
+      tabindex="-1"
+      aria-labelledby="RegisterUserModalLabel"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog modal-dialog-scrollable modal-dialog-centered">
+        <div class="modal-content">
+          <div class="modal-header btn-bublue">
+            <h3 class="modal-title text-light" id="RegisterUserModalLabel">
+              Registracija Korisnika
+            </h3>
+          </div>
+          <div class="modal-body">
+            <form class="row g-3" id="registerUserForm" novalidate>
+              <div class="col-md-6 form-floating">
+                <input
+                  type="text"
+                  class="form-control"
+                  id="inputRegistrationName"
+                  placeholder="ime"
+                  required
+                  name="name"
+                />
+                <label for="inputRegistrationName" class="form-label"
+                  >Ime</label
+                >
+                <div class="invalid-feedback">Obavezno polje!</div>
+              </div>
+
+              <div class="col-md-6 form-floating">
+                <input
+                  type="text"
+                  class="form-control"
+                  id="inputRegistrationSurname"
+                  placeholder="prezime"
+                  required
+                  name="surname"
+                />
+                <label for="inputRegistrationSurname" class="form-label"
+                  >Prezime</label
+                >
+                <div class="invalid-feedback">Obavezno polje!</div>
+              </div>
+
+              <div class="col-12 form-floating">
+                <input
+                  type="text"
+                  class="form-control"
+                  id="inputRegistrationUsername"
+                  placeholder="korisničko ime"
+                  required
+                  name="username"
+                />
+                <label for="inputRegistrationUsername" class="form-label"
+                  >Korisničko Ime</label
+                >
+                <div
+                  class="invalid-feedback"
+                  id="usernameRegisterInvalidFeedback"
+                >
+                  Obavezno polje!
+                </div>
+              </div>
+
+              <div class="col-12 form-floating">
+                <input
+                  type="password"
+                  class="form-control"
+                  id="inputRegistrationPassword"
+                  placeholder="lozinka"
+                  required
+                  name="password"
+                />
+                <label for="inputRegistrationPassword" class="form-label"
+                  >Lozinka</label
+                >
+                <div class="invalid-feedback">Obavezno polje!</div>
+              </div>
+
+              <div class="col-12 form-floating">
+                <input
+                  type="email"
+                  class="form-control"
+                  id="inputRegistrationEmail"
+                  placeholder="email"
+                  required
+                  name="email"
+                />
+                <label for="inputRegistrationEmail" class="form-label"
+                  >Email</label
+                >
+                <div class="invalid-feedback" id="emailRegisterInvalidFeedback">
+                  Obavezno polje!
+                </div>
+              </div>
+
+              <div class="col-md-6 form-floating">
+                <input
+                  type="number"
+                  class="form-control"
+                  id="inputRegistrationPhone"
+                  placeholder="telefon"
+                  required
+                  name="phone"
+                />
+                <label for="inputRegistrationPhone" class="form-label"
+                  >Telefon</label
+                >
+                <div class="invalid-feedback" id="phoneRegisterInvalidFeedback">
+                  Obavezno polje!
+                </div>
+              </div>
+
+              <div class="col-md-6 form-floating">
+                <input
+                  type="date"
+                  class="form-control"
+                  id="inputRegistrationBirthday"
+                  placeholder="rodjendan"
+                  required
+                  name="birthday"
+                />
+                <label for="inputRegistrationBirthday" class="form-label"
+                  >Datum Rodjenja</label
+                >
+                <div class="invalid-feedback">Obavezno polje!</div>
+              </div>
+
+              <div class="col-12 form-floating">
+                <input
+                  type="text"
+                  class="form-control"
+                  id="inputRegistrationAddress"
+                  placeholder="adresa"
+                  required
+                  name="address"
+                />
+                <label for="inputRegistrationAddress" class="form-label"
+                  >Adresa</label
+                >
+                <div
+                  class="invalid-feedback"
+                  id="addressRegisterInvalidFeedback"
+                >
+                  Obavezno polje!
+                </div>
+              </div>
+
+              <div class="col-12 form-floating">
+                <input
+                  type="text"
+                  class="form-control"
+                  id="inputRegistrationEducation"
+                  placeholder="zanimanje"
+                  required
+                  name="education"
+                />
+                <label for="inputRegistrationEducation" class="form-label"
+                  >Zanimanje</label
+                >
+                <div class="invalid-feedback">Obavezno polje!</div>
+              </div>
+
+              <div class="col d-flex justify-content-between">
+                <button
+                  type="button"
+                  class="btn btn-secondary"
+                  data-bs-dismiss="modal"
+                >
+                  Odustani
+                </button>
+                <button type="submit" class="btn btn-primary">
+                  Registruj se
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Prijava modal -->
+    <div
+      class="modal fade"
+      id="loginUserModal"
+      tabindex="-1"
+      aria-labelledby="loginUserModalLabel"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog modal-dialog-scrollable modal-dialog-centered">
+        <div class="modal-content">
+          <div class="modal-header btn-orange">
+            <h3 class="modal-title text-light" id="loginUserModalLabel">
+              Prijava Za Korisnika
+            </h3>
+          </div>
+          <div class="modal-body">
+            <form class="row g-3" id="loginUserForm" novalidate>
+              <div class="col-12 form-floating" id="loginUsername">
+                <input
+                  type="text"
+                  class="form-control"
+                  id="inputLoginUsername"
+                  placeholder="korisničko ime"
+                  required
+                  name="username"
+                />
+                <label for="inputLoginUsername" class="form-label"
+                  >Korisničko Ime</label
+                >
+                <div
+                  class="invalid-feedback"
+                  id="usernameLoginInvalidFeedback"
+                ></div>
+              </div>
+
+              <div class="col-12 form-floating" id="loginPassword">
+                <input
+                  type="password"
+                  class="form-control"
+                  id="inputLoginPassword"
+                  placeholder="lozinka"
+                  required
+                  name="password"
+                />
+                <label for="inputLoginPassword" class="form-label"
+                  >Lozinka</label
+                >
+                <div
+                  class="invalid-feedback"
+                  id="passwordLoginInvalidFeedback"
+                ></div>
+              </div>
+
+              <div class="col d-flex justify-content-between">
+                <button
+                  type="button"
+                  class="btn btn-secondary"
+                  data-bs-dismiss="modal"
+                >
+                  Odustani
+                </button>
+                <button type="submit" class="btn btn-primary">
+                  Prijavi se
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
 
     <!-- About User Table  -->
     <section style="text-align: center">
@@ -130,122 +407,127 @@
     <!-- User edit modal -->
     <div
       class="modal fade"
-      id="editModal"
+      id="editUserModal"
       tabindex="-1"
-      aria-labelledby="editModalLabel"
+      aria-labelledby="editUserModalLabel"
       aria-hidden="true"
     >
-      <div class="modal-dialog">
+      <div class="modal-dialog modal-dialog-scrollable modal-dialog-centered">
         <div class="modal-content">
-          <div class="modal-header">
-            <h5 class="modal-title" id="editModalLabel">
-              Promenite Podatke Korisnika
-            </h5>
-            <button
-              type="button"
-              class="btn-close"
-              data-bs-dismiss="modal"
-              aria-label="Close"
-            ></button>
+          <div class="modal-header bg-primary">
+            <h3 class="modal-title text-light" id="editUserModalLabel">
+              Izmeni Podatke Korisnika
+            </h3>
           </div>
           <div class="modal-body">
             <form class="row g-3" id="editUserForm">
-              <div class="col-md-6">
-                <label for="inputName" class="form-label">Ime:</label>
+              <div class="col-md-6 form-floating">
                 <input
                   type="text"
                   class="form-control"
-                  id="inputName"
+                  id="inputEditName"
+                  placeholder="ime"
                   required
                 />
+                <label for="inputEditName" class="form-label">Ime</label>
               </div>
 
-              <div class="col-md-6">
-                <label for="inputPrezime" class="form-label">Prezime:</label>
+              <div class="col-md-6 form-floating">
                 <input
                   type="text"
                   class="form-control"
-                  id="inputPrezime"
+                  id="inputEditPrezime"
+                  placeholder="prezime"
                   required
                 />
+                <label for="inputEditPrezime" class="form-label">Prezime</label>
               </div>
 
-              <div class="col-12">
-                <label for="inputUsername" class="form-label"
-                  >Korisničko Ime:</label
+              <div class="col-12 form-floating">
+                <input
+                  type="text"
+                  class="form-control"
+                  id="inputEditUsername"
+                  placeholder="korisničko ime"
+                  required
+                />
+                <label for="inputEditUsername" class="form-label"
+                  >Korisničko Ime</label
                 >
-                <input
-                  type="text"
-                  class="form-control"
-                  id="inputUsername"
-                  required
-                />
               </div>
 
-              <div class="col-12">
-                <label for="inputPassword4" class="form-label">Lozinka:</label>
+              <div class="col-12 form-floating">
                 <input
                   type="password"
                   class="form-control"
-                  id="inputPassword4"
+                  id="inputEditPassword"
+                  placeholder="lozinka"
                   required
                 />
+                <label for="inputEditPassword" class="form-label"
+                  >Lozinka</label
+                >
               </div>
 
-              <div class="col-12">
-                <label for="inputEmail" class="form-label">Email:</label>
+              <div class="col-12 form-floating">
                 <input
                   type="email"
                   class="form-control"
-                  id="inputEmail"
+                  id="inputEditEmail"
+                  placeholder="email"
                   required
                   pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$"
                 />
+                <label for="inputEditEmail" class="form-label">Email</label>
               </div>
 
-              <div class="col-md-6">
-                <label for="inputPhone" class="form-label">Telefon:</label>
+              <div class="col-md-6 form-floating">
                 <input
                   type="tel"
                   class="form-control"
-                  id="inputPhone"
+                  id="inputEditPhone"
+                  placeholder="telefon"
                   required
                   pattern="[0-9]{10}"
                 />
+                <label for="inputEditPhone" class="form-label">Telefon</label>
               </div>
 
-              <div class="col-md-6">
-                <label for="inputBirthday" class="form-label"
-                  >Datum Rodjenja:</label
-                >
+              <div class="col-md-6 form-floating">
                 <input
                   type="date"
                   class="form-control"
-                  id="inputBirthday"
+                  id="inputEditBirthday"
+                  placeholder="rodjendan"
                   required
                 />
-              </div>
-
-              <div class="col-12">
-                <label for="inputAddress" class="form-label">Adresa:</label>
-                <input
-                  type="text"
-                  class="form-control"
-                  id="inputAddress"
-                  required
-                />
-              </div>
-
-              <div class="col-12">
-                <label for="inputEducation" class="form-label"
-                  >Zanimanje:</label
+                <label for="inputEditBirthday" class="form-label"
+                  >Datum Rodjenja</label
                 >
+              </div>
+
+              <div class="col-12 form-floating">
                 <input
                   type="text"
                   class="form-control"
-                  id="inputEducation"
+                  id="inputEditAddress"
+                  placeholder="adresa"
                   required
                 />
+                <label for="inputEditAddress" class="form-label">Adresa</label>
+              </div>
+
+              <div class="col-12 form-floating">
+                <input
+                  type="text"
+                  class="form-control"
+                  id="inputEditEducation"
+                  placeholder="zanimanje"
+                  required
+                />
+                <label for="inputEditEducation" class="form-label"
+                  >Zanimanje</label
+                >
               </div>
             </form>
           </div>
@@ -255,10 +537,10 @@
               class="btn btn-secondary"
               data-bs-dismiss="modal"
             >
-              Close
+              Odustani
             </button>
             <button type="button" class="btn btn-primary" id="saveChanges">
-              Save changes
+              Sačuvaj
             </button>
           </div>
         </div>
