@@ -88,6 +88,10 @@ loginUserForm.addEventListener("submit", function (e) {
               let modalInstance = bootstrap.Modal.getInstance(modalElement);
               modalInstance.hide();
               lookForUser();
+              const alertSuccessfullLogin = document.getElementById(
+                "alertSuccessfullLogin"
+              );
+              alertSuccessfullLogin.classList.add("show");
               return;
             }
           }
@@ -354,6 +358,10 @@ registerUserForm.addEventListener("submit", function (e) {
             let modalInstance = bootstrap.Modal.getInstance(modalElement);
             modalInstance.hide();
             lookForUser();
+            const alertSuccessfullRegistration = document.getElementById(
+              "alertSuccessfullRegistration"
+            );
+            alertSuccessfullRegistration.classList.add("show");
             return;
           } else {
             window.location.href = "greska.html?error=" + this.status;
@@ -389,25 +397,4 @@ function clearRegisterInputFields() {
   inputRegistrationEducation.classList.remove("is-invalid");
 
   registerUserForm.classList.remove("was-validated");
-}
-
-function storeRegisteredUser(ulogovaniKorisnik) {
-  let request = new XMLHttpRequest();
-  request.onreadystatechange = function () {
-    if (this.readyState == 4) {
-      if (this.status == 200) {
-        let users = JSON.parse(request.responseText);
-        let id = Object.keys(users).length;
-        users[id] = ulogovaniKorisnik;
-        let jsonUsers = JSON.stringify(users);
-        let request = new XMLHttpRequest();
-        request.open("PUT", `${fireBaseUrl}korisnici.json`);
-        request.send(jsonUsers);
-      } else {
-        window.location.href = "greska.html?error=" + this.status;
-      }
-    }
-  };
-  request.open("GET", `${fireBaseUrl}korisnici.json`);
-  request.send();
 }

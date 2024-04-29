@@ -138,3 +138,10 @@ table button:active svg {
 #footer {
   margin-top: auto;
 }
+
+.alert {
+  position: fixed;
+  top: 110px;
+  right: 20px;
+  z-index: 9999;
+}
