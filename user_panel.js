@@ -4,12 +4,12 @@ const usersTableData = document.getElementById("usersTableData");
 getUsersTableData();
 
 function getUsersTableData() {
+  console.log("Getting users table data");
   let request = new XMLHttpRequest();
   request.onreadystatechange = function () {
     if (this.readyState == 4) {
       if (this.status == 200) {
         let users = JSON.parse(request.responseText);
-        console.log(users);
         usersTableData.innerHTML = "";
 
         for (let id in users) {
@@ -33,6 +33,7 @@ function getUsersTableData() {
                         id="dropdownUserMenuButton"
                         data-bs-toggle="dropdown"
                         aria-expanded="false"
+                        data-user-id="${id}"
                         >
                         <svg
                             xmlns="http://www.w3.org/2000/svg"
@@ -55,20 +56,44 @@ function getUsersTableData() {
                         >
                         <li>
                             <a
-                            class="dropdown-item"
+                            id="editUserButton"
+                            class="dropdown-item text-dark"
                             data-bs-toggle="modal"
-                            data-bs-target="#editUserModal"
+                            data-bs-target="#EditUserModal"
                             href="#"
                             >Izmeni Podatke Korsinika</a
                             >
                         </li>
                         <li>
-                            <a class="dropdown-item text-danger" href="#">Obriši Korisnika</a>
+                            <a id="deleteUserLink" class="dropdown-item text-danger" href="#">Obriši Korisnika</a>
                         </li>
                         </ul>
                     </div>
                 </td>
             </tr>`;
+
+          document.querySelectorAll(".dropdown-toggle").forEach((button) => {
+            button.addEventListener("click", function () {
+              let userId = this.getAttribute("data-user-id");
+              console.log(userId);
+
+              let deleteUserLink =
+                this.nextElementSibling.querySelector(".text-danger");
+
+              deleteUserLink.addEventListener("click", function (event) {
+                event.preventDefault();
+                deleteUser(userId);
+              });
+
+              let editUserLink =
+                this.nextElementSibling.querySelector(".text-dark");
+
+              editUserLink.addEventListener("click", function (event) {
+                event.preventDefault();
+                editUser(userId);
+              });
+            });
+          });
         }
       } else {
         window.location.href = "greska.html?error=" + this.status;
@@ -77,4 +102,274 @@ function getUsersTableData() {
   };
   request.open("GET", `${fireBaseUrl}/korisnici.json`);
   request.send();
+}
+
+// Delete user function
+function deleteUser(userId) {
+  console.log("Deleting user with id:", userId);
+  if (confirm("Da li ste sigurni da želite da obrišete korisnika?")) {
+    let request = new XMLHttpRequest();
+    request.onreadystatechange = function () {
+      if (this.readyState == 4) {
+        if (this.status == 200) {
+          getUsersTableData();
+        } else {
+          window.location.href = "greska.html?error=" + this.status;
+        }
+      }
+    };
+    request.open("DELETE", `${fireBaseUrl}/korisnici/${userId}.json`);
+    request.send();
+  }
+}
+
+// Edit user function
+function editUser(userId) {
+  // Forma za edit
+  const EditUserForm = document.getElementById("editUserForm");
+
+  // Input polja
+  const inputEditName = document.getElementById("inputEditName");
+  const inputEditSurname = document.getElementById("inputEditSurname");
+  const inputEditUsername = document.getElementById("inputEditUsername");
+  const inputEditPassword = document.getElementById("inputEditPassword");
+  const inputEditEmail = document.getElementById("inputEditEmail");
+  const inputEditPhone = document.getElementById("inputEditPhone");
+  const inputEditBirthday = document.getElementById("inputEditBirthday");
+  const inputEditAddress = document.getElementById("inputEditAddress");
+  const inputEditEducation = document.getElementById("inputEditEducation");
+
+  // Dugme za edit
+  const EditButton = document.getElementById("EditButton");
+
+  let request = new XMLHttpRequest();
+  request.onreadystatechange = function () {
+    if (this.readyState == 4) {
+      if (this.status == 200) {
+        let user_data = JSON.parse(request.responseText);
+        console.log(user_data);
+
+        inputEditName.value = user_data.ime;
+        inputEditSurname.value = user_data.prezime;
+        inputEditUsername.value = user_data.korisnickoIme;
+        inputEditPassword.value = user_data.lozinka;
+        inputEditEmail.value = user_data.email;
+        inputEditPhone.value = user_data.telefon;
+        inputEditBirthday.value = user_data.datumRodjenja;
+        inputEditAddress.value = user_data.adresa;
+        inputEditEducation.value = user_data.zanimanje;
+
+        editValidateAndSend(
+          userId,
+          EditUserForm,
+          inputEditName,
+          inputEditSurname,
+          inputEditUsername,
+          inputEditPassword,
+          inputEditEmail,
+          inputEditPhone,
+          inputEditBirthday,
+          inputEditAddress,
+          inputEditEducation,
+          EditButton
+        );
+      } else {
+        window.location.href = "greska.html?error=" + this.status;
+      }
+    }
+  };
+  request.open("GET", `${fireBaseUrl}/korisnici/${userId}.json`);
+  request.send();
+}
+
+function editValidateAndSend(
+  userId,
+  EditUserForm,
+  inputEditName,
+  inputEditSurname,
+  inputEditUsername,
+  inputEditPassword,
+  inputEditEmail,
+  inputEditPhone,
+  inputEditBirthday,
+  inputEditAddress,
+  inputEditEducation,
+  EditButton
+) {
+  EditButton.addEventListener("click", function () {
+    clearEditInputFields();
+  });
+
+  console.log("Editing user with id:", userId);
+  EditUserForm.addEventListener("submit", function (e) {
+    e.preventDefault();
+    console.log("submit");
+    clearEditInputFields();
+
+    // Vrednosti input polja
+    const name = inputEditName.value.trim();
+    const surname = inputEditSurname.value.trim();
+    const username = inputEditUsername.value.trim();
+    const password = inputEditPassword.value.trim();
+    const email = inputEditEmail.value.trim();
+    const phone = inputEditPhone.value.trim();
+    const birthday = inputEditBirthday.value.trim();
+    const address = inputEditAddress.value.trim();
+    const education = inputEditEducation.value.trim();
+
+    // Feedack elementi
+    const usernameEditInvalidFeedback = document.getElementById(
+      "usernameEditInvalidFeedback"
+    );
+    const emailEditInvalidFeedback = document.getElementById(
+      "emailEditInvalidFeedback"
+    );
+    const phoneEditInvalidFeedback = document.getElementById(
+      "phoneEditInvalidFeedback"
+    );
+    const addressEditInvalidFeedback = document.getElementById(
+      "addressEditInvalidFeedback"
+    );
+
+    // Promenljiva koja oznacava da li treba ici na server
+    let goToServer = true;
+
+    // Provera da li je sve uneto
+    if (name === "") {
+      goToServer = false;
+      inputEditName.classList.add("is-invalid");
+    } else {
+      inputEditName.classList.add("is-valid");
+    }
+    if (surname === "") {
+      goToServer = false;
+      inputEditSurname.classList.add("is-invalid");
+    } else {
+      inputEditSurname.classList.add("is-valid");
+    }
+    if (username === "") {
+      goToServer = false;
+      inputEditUsername.classList.add("is-invalid");
+    }
+    if (password === "") {
+      goToServer = false;
+      inputEditPassword.classList.add("is-invalid");
+    } else {
+      inputEditPassword.classList.add("is-valid");
+    }
+    if (email === "") {
+      goToServer = false;
+      inputEditEmail.classList.add("is-invalid");
+    }
+    if (phone === "") {
+      goToServer = false;
+      inputEditPhone.classList.add("is-invalid");
+    }
+    if (birthday === "") {
+      goToServer = false;
+      inputEditBirthday.classList.add("is-invalid");
+    } else {
+      inputEditBirthday.classList.add("is-valid");
+    }
+    if (address === "") {
+      goToServer = false;
+      inputEditAddress.classList.add("is-invalid");
+    }
+    if (education === "") {
+      goToServer = false;
+      inputEditEducation.classList.add("is-invalid");
+    } else {
+      inputEditEducation.classList.add("is-valid");
+    }
+    console.log(goToServer);
+    if (goToServer) {
+      const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+      if (!emailRegex.test(email)) {
+        inputEditEmail.classList.add("is-invalid");
+        emailEditInvalidFeedback.innerHTML = "Email nije validan!";
+        goToServer = false;
+      } else {
+        console.log("valid mail");
+        inputEditEmail.classList.add("is-valid");
+      }
+
+      const phoneRegex = /^\d{7,12}$/;
+      if (!phoneRegex.test(phone)) {
+        inputEditPhone.classList.add("is-invalid");
+        phoneEditInvalidFeedback.innerHTML = "Broj telefona nije validan!";
+        goToServer = false;
+      } else {
+        console.log("valid phone");
+        inputEditPhone.classList.add("is-valid");
+      }
+      const addressRegex =
+        /^[a-zA-Z\s0-9čćžšđČĆŽŠĐ]+,\s[a-zA-Z\sčćžšđČĆŽŠĐ]+,\s\d+$/;
+      if (!addressRegex.test(address)) {
+        inputEditAddress.classList.add("is-invalid");
+        addressEditInvalidFeedback.innerHTML =
+          "Adresa nije u formatu:<br/> 'ulica broj, mesto, ZIP kod'!";
+        goToServer = false;
+      } else {
+        inputEditAddress.classList.add("is-valid");
+      }
+      console.log("valid address");
+
+      if (goToServer) {
+        inputEditUsername.classList.add("is-valid");
+        ulogovaniKorisnik = {
+          korisnickoIme: username,
+          lozinka: password,
+          ime: name,
+          prezime: surname,
+          email: email,
+          datumRodjenja: birthday,
+          adresa: address,
+          telefon: phone,
+          zanimanje: education,
+        };
+
+        user = ulogovaniKorisnik;
+        let req = new XMLHttpRequest();
+        req.open("PUT", `${fireBaseUrl}korisnici/${userId}.json`);
+        req.send(JSON.stringify(user));
+
+        let modalElement = document.getElementById("EditUserModal");
+        let modalInstance = bootstrap.Modal.getInstance(modalElement);
+        modalInstance.hide();
+
+        const alertSuccessfullEdit = document.getElementById(
+          "alertSuccessfullEdit"
+        );
+        alertSuccessfullEdit.classList.add("show");
+        console.log("User edited successfully!");
+        setTimeout(getUsersTableData, 500);
+      }
+    }
+  });
+}
+
+function clearEditInputFields() {
+  let EditUserForm = document.querySelector("#editUserForm");
+
+  inputEditName.classList.remove("is-valid");
+  inputEditSurname.classList.remove("is-valid");
+  inputEditUsername.classList.remove("is-valid");
+  inputEditPassword.classList.remove("is-valid");
+  inputEditEmail.classList.remove("is-valid");
+  inputEditPhone.classList.remove("is-valid");
+  inputEditBirthday.classList.remove("is-valid");
+  inputEditAddress.classList.remove("is-valid");
+  inputEditEducation.classList.remove("is-valid");
+
+  inputEditName.classList.remove("is-invalid");
+  inputEditSurname.classList.remove("is-invalid");
+  inputEditUsername.classList.remove("is-invalid");
+  inputEditPassword.classList.remove("is-invalid");
+  inputEditEmail.classList.remove("is-invalid");
+  inputEditPhone.classList.remove("is-invalid");
+  inputEditBirthday.classList.remove("is-invalid");
+  inputEditAddress.classList.remove("is-invalid");
+  inputEditEducation.classList.remove("is-invalid");
+
+  EditUserForm.classList.remove("was-validated");
 }

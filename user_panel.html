@@ -400,7 +400,7 @@
       ></button>
     </div>
 
-    <!-- About User Table  -->
+    <!-- User Table Heading -->
     <section style="text-align: center">
       <div
         class="bg-secondary text-light p-3 py-2 my-4 rounded-3"
@@ -435,23 +435,23 @@
       </div>
     </section>
 
-    <!-- User edit modal -->
+    <!-- Edit User Modal -->
     <div
       class="modal fade"
-      id="editUserModal"
+      id="EditUserModal"
       tabindex="-1"
-      aria-labelledby="editUserModalLabel"
+      aria-labelledby="EditUserModalLabel"
       aria-hidden="true"
     >
       <div class="modal-dialog modal-dialog-scrollable modal-dialog-centered">
         <div class="modal-content">
-          <div class="modal-header bg-primary">
-            <h3 class="modal-title text-light" id="editUserModalLabel">
-              Izmeni Podatke Korisnika
+          <div class="modal-header btn-pink">
+            <h3 class="modal-title text-light" id="EditUserModalLabel">
+              Izmena Korisničkih Podataka
             </h3>
           </div>
           <div class="modal-body">
-            <form class="row g-3" id="editUserForm">
+            <form class="row g-3" id="editUserForm" novalidate>
               <div class="col-md-6 form-floating">
                 <input
                   type="text"
@@ -459,19 +459,23 @@
                   id="inputEditName"
                   placeholder="ime"
                   required
+                  name="name"
                 />
                 <label for="inputEditName" class="form-label">Ime</label>
+                <div class="invalid-feedback">Obavezno polje!</div>
               </div>
 
               <div class="col-md-6 form-floating">
                 <input
                   type="text"
                   class="form-control"
-                  id="inputEditPrezime"
+                  id="inputEditSurname"
                   placeholder="prezime"
                   required
+                  name="surname"
                 />
-                <label for="inputEditPrezime" class="form-label">Prezime</label>
+                <label for="inputEditSurname" class="form-label">Prezime</label>
+                <div class="invalid-feedback">Obavezno polje!</div>
               </div>
 
               <div class="col-12 form-floating">
@@ -481,10 +485,15 @@
                   id="inputEditUsername"
                   placeholder="korisničko ime"
                   required
+                  name="username"
+                  disabled
                 />
                 <label for="inputEditUsername" class="form-label"
                   >Korisničko Ime</label
                 >
+                <div class="invalid-feedback" id="usernameEditInvalidFeedback">
+                  Obavezno polje!
+                </div>
               </div>
 
               <div class="col-12 form-floating">
@@ -494,10 +503,12 @@
                   id="inputEditPassword"
                   placeholder="lozinka"
                   required
+                  name="password"
                 />
                 <label for="inputEditPassword" class="form-label"
                   >Lozinka</label
                 >
+                <div class="invalid-feedback">Obavezno polje!</div>
               </div>
 
               <div class="col-12 form-floating">
@@ -507,21 +518,27 @@
                   id="inputEditEmail"
                   placeholder="email"
                   required
-                  pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$"
+                  name="email"
                 />
                 <label for="inputEditEmail" class="form-label">Email</label>
+                <div class="invalid-feedback" id="emailEditInvalidFeedback">
+                  Obavezno polje!
+                </div>
               </div>
 
               <div class="col-md-6 form-floating">
                 <input
-                  type="tel"
+                  type="number"
                   class="form-control"
                   id="inputEditPhone"
                   placeholder="telefon"
                   required
-                  pattern="[0-9]{10}"
+                  name="phone"
                 />
                 <label for="inputEditPhone" class="form-label">Telefon</label>
+                <div class="invalid-feedback" id="phoneEditInvalidFeedback">
+                  Obavezno polje!
+                </div>
               </div>
 
               <div class="col-md-6 form-floating">
@@ -531,10 +548,12 @@
                   id="inputEditBirthday"
                   placeholder="rodjendan"
                   required
+                  name="birthday"
                 />
                 <label for="inputEditBirthday" class="form-label"
                   >Datum Rodjenja</label
                 >
+                <div class="invalid-feedback">Obavezno polje!</div>
               </div>
 
               <div class="col-12 form-floating">
@@ -544,8 +563,12 @@
                   id="inputEditAddress"
                   placeholder="adresa"
                   required
+                  name="address"
                 />
                 <label for="inputEditAddress" class="form-label">Adresa</label>
+                <div class="invalid-feedback" id="addressEditInvalidFeedback">
+                  Obavezno polje!
+                </div>
               </div>
 
               <div class="col-12 form-floating">
@@ -555,27 +578,45 @@
                   id="inputEditEducation"
                   placeholder="zanimanje"
                   required
+                  name="education"
                 />
                 <label for="inputEditEducation" class="form-label"
                   >Zanimanje</label
                 >
+                <div class="invalid-feedback">Obavezno polje!</div>
+              </div>
+
+              <div class="col d-flex justify-content-between">
+                <button
+                  type="button"
+                  class="btn btn-secondary"
+                  data-bs-dismiss="modal"
+                >
+                  Odustani
+                </button>
+                <button type="submit" class="btn btn-primary" id="EditButton">
+                  Izmeni
+                </button>
               </div>
             </form>
           </div>
-          <div class="modal-footer">
-            <button
-              type="button"
-              class="btn btn-secondary"
-              data-bs-dismiss="modal"
-            >
-              Odustani
-            </button>
-            <button type="button" class="btn btn-primary" id="saveChanges">
-              Sačuvaj
-            </button>
-          </div>
         </div>
       </div>
+    </div>
+
+    <!-- Alert Edit-->
+    <div
+      class="fixed alert alert-success alert-dismissible fade"
+      id="alertSuccessfullEdit"
+      role="alert"
+    >
+      <strong>Uspešno ste izmenili korisničke podatke!</strong>
+      <button
+        type="button"
+        class="btn-close"
+        data-bs-dismiss="alert"
+        aria-label="close"
+      ></button>
     </div>
 
     <!-- Footer -->
