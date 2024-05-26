@@ -291,7 +291,6 @@ function editValidateAndSend(
       }
 
       const phoneRegex = /^\d{3}\/\d{3,4}-\d{3,4}$/;
-      console.log(phone);
 
       if (!phoneRegex.test(phone)) {
         inputOrganisatorPhone.classList.add("is-invalid");
@@ -438,7 +437,6 @@ function addFestival(festivalCode) {
       }
       pictureObject[i + 1] = pictureLinks[i];
     }
-    console.log(pictureObject);
     if (description === "") {
       goToServer = false;
       inputFestivalDescription.classList.add("is-invalid");
@@ -459,7 +457,6 @@ function addFestival(festivalCode) {
               prevoz: travelType,
               tip: type,
             };
-            console.log("USAO U ADD FESTIVAL");
 
             id = Object.keys(festivals).length;
             festivals[id] = new_festival;
@@ -523,7 +520,6 @@ function deleteFestival(festivalsCode) {
       'input[name="option"]:checked'
     );
     const selected_festival = selectedRadioButton.value;
-    console.log(selected_festival);
 
     removeFestival(festivalsCode, selected_festival);
   });

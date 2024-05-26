@@ -19,7 +19,6 @@ searchButton.addEventListener("click", () => searchFestivals(festivalsCode));
 function getOrganisatorId() {
   let params = new URLSearchParams(window.location.search);
   let organisatorId = params.get("organisatorId");
-  console.log(organisatorId);
   return organisatorId;
 }
 
@@ -29,7 +28,6 @@ function getOrganisatorsInfo() {
     if (this.readyState == 4) {
       if (this.status == 200) {
         let organisator = JSON.parse(request.responseText);
-        console.log(organisator);
 
         organisatorName.innerHTML = organisator.naziv;
         organisatorAdress.innerHTML = organisator.adresa;
@@ -77,7 +75,6 @@ function getAllOrganisatorsFestivals(festivalsCode) {
     if (this.readyState == 4) {
       if (this.status == 200) {
         let festivals = JSON.parse(request.responseText);
-        console.log(festivals);
         festivalRow.innerHTML = "";
 
         for (let id in festivals) {
@@ -113,7 +110,6 @@ function getAllOrganisatorsFestivals(festivalsCode) {
 
 function searchFestivals(festivalsCode) {
   let FestivalType = document.getElementById("dropdownFestivalType").value;
-  console.log(FestivalType);
   let FestivalName = document.getElementById("FestSearchInput").value;
   let request = new XMLHttpRequest();
   request.onreadystatechange = function () {

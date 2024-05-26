@@ -204,7 +204,6 @@ registerButton.addEventListener("click", function () {
 // Registraciona validacija
 registerUserForm.addEventListener("submit", function (e) {
   e.preventDefault();
-  console.log("submit");
   clearRegisterInputFields();
 
   // Vrednosti input polja
@@ -282,7 +281,6 @@ registerUserForm.addEventListener("submit", function (e) {
   } else {
     inputRegistrationEducation.classList.add("is-valid");
   }
-  console.log(goToServer);
   if (goToServer) {
     const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
     if (!emailRegex.test(email)) {
@@ -290,7 +288,6 @@ registerUserForm.addEventListener("submit", function (e) {
       emailRegisterInvalidFeedback.innerHTML = "Email nije validan!";
       goToServer = false;
     } else {
-      console.log("valid mail");
       inputRegistrationEmail.classList.add("is-valid");
     }
 
@@ -300,7 +297,6 @@ registerUserForm.addEventListener("submit", function (e) {
       phoneRegisterInvalidFeedback.innerHTML = "Broj telefona nije validan!";
       goToServer = false;
     } else {
-      console.log("valid phone");
       inputRegistrationPhone.classList.add("is-valid");
     }
 
@@ -314,7 +310,6 @@ registerUserForm.addEventListener("submit", function (e) {
     } else {
       inputRegistrationAddress.classList.add("is-valid");
     }
-    console.log("valid address");
     if (goToServer) {
       let request = new XMLHttpRequest();
 

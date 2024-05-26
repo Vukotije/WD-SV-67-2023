@@ -47,8 +47,6 @@ function getFestivalId() {
   let params = new URLSearchParams(window.location.search);
   let festivalId = params.get("festivalId");
   let festivalsId = params.get("festivalsId");
-  console.log(festivalId);
-  console.log(festivalsId);
   return [festivalId, festivalsId];
 }
 
@@ -58,16 +56,11 @@ function getFestivalInfo() {
     if (this.readyState == 4) {
       if (this.status == 200) {
         let festival = JSON.parse(request.responseText);
-        console.log(festival);
 
         festivalName.innerHTML = festival.naziv;
         festivalType.innerHTML = festival.tip;
-        console.log(festival.tip);
-        console.log(TIP[festival.tip]);
         festivalTypeIconContainer.innerHTML = TIP[festival.tip];
         festivalTransport.innerHTML = festival.prevoz;
-        console.log(festival.prevoz);
-        console.log(PREVOZ[festival.prevoz]);
         festivalTransportIconContainer.innerHTML = PREVOZ[festival.prevoz];
         festivalPrice.innerHTML = festival.cena;
         festivalMaxPersons.innerHTML = festival.maxOsoba;
@@ -88,7 +81,6 @@ function getFestivalInfo() {
         let activeStatus = "active";
         for (let index in festivalPictures) {
           let pictureLink = festivalPictures[index];
-          console.log(pictureLink);
           picturesCarouselContainer.innerHTML += `
             <div class="carousel-item ${activeStatus} ratio ratio-4x3">
                 <img
