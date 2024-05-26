@@ -4,7 +4,6 @@ const usersTableData = document.getElementById("usersTableData");
 getUsersTableData();
 
 function getUsersTableData() {
-  console.log("Getting users table data");
   let request = new XMLHttpRequest();
   request.onreadystatechange = function () {
     if (this.readyState == 4) {
@@ -75,7 +74,6 @@ function getUsersTableData() {
           document.querySelectorAll(".dropdown-toggle").forEach((button) => {
             button.addEventListener("click", function () {
               let userId = this.getAttribute("data-user-id");
-              console.log(userId);
 
               let deleteUserLink =
                 this.nextElementSibling.querySelector(".text-danger");
@@ -106,7 +104,6 @@ function getUsersTableData() {
 
 // Delete user function
 function deleteUser(userId) {
-  console.log("Deleting user with id:", userId);
   if (confirm("Da li ste sigurni da želite da obrišete korisnika?")) {
     let request = new XMLHttpRequest();
     request.onreadystatechange = function () {
@@ -147,7 +144,6 @@ function editUser(userId) {
     if (this.readyState == 4) {
       if (this.status == 200) {
         let user_data = JSON.parse(request.responseText);
-        console.log(user_data);
 
         inputEditName.value = user_data.ime;
         inputEditSurname.value = user_data.prezime;
@@ -200,10 +196,8 @@ function editValidateAndSend(
     clearEditInputFields();
   });
 
-  console.log("Editing user with id:", userId);
   EditUserForm.addEventListener("submit", function (e) {
     e.preventDefault();
-    console.log("submit");
     clearEditInputFields();
 
     // Vrednosti input polja
@@ -281,7 +275,6 @@ function editValidateAndSend(
     } else {
       inputEditEducation.classList.add("is-valid");
     }
-    console.log(goToServer);
     if (goToServer) {
       const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
       if (!emailRegex.test(email)) {
@@ -289,7 +282,6 @@ function editValidateAndSend(
         emailEditInvalidFeedback.innerHTML = "Email nije validan!";
         goToServer = false;
       } else {
-        console.log("valid mail");
         inputEditEmail.classList.add("is-valid");
       }
 
@@ -299,7 +291,6 @@ function editValidateAndSend(
         phoneEditInvalidFeedback.innerHTML = "Broj telefona nije validan!";
         goToServer = false;
       } else {
-        console.log("valid phone");
         inputEditPhone.classList.add("is-valid");
       }
       const addressRegex =
@@ -312,11 +303,9 @@ function editValidateAndSend(
       } else {
         inputEditAddress.classList.add("is-valid");
       }
-      console.log("valid address");
 
       if (goToServer) {
-        inputEditUsername.classList.add("is-valid");
-        ulogovaniKorisnik = {
+        let edited_korisnik = {
           korisnickoIme: username,
           lozinka: password,
           ime: name,
@@ -328,10 +317,9 @@ function editValidateAndSend(
           zanimanje: education,
         };
 
-        user = ulogovaniKorisnik;
         let req = new XMLHttpRequest();
         req.open("PUT", `${fireBaseUrl}korisnici/${userId}.json`);
-        req.send(JSON.stringify(user));
+        req.send(JSON.stringify(edited_korisnik));
 
         let modalElement = document.getElementById("EditUserModal");
         let modalInstance = bootstrap.Modal.getInstance(modalElement);
@@ -341,7 +329,6 @@ function editValidateAndSend(
           "alertSuccessfullEdit"
         );
         alertSuccessfullEdit.classList.add("show");
-        console.log("User edited successfully!");
         setTimeout(getUsersTableData, 500);
       }
     }
