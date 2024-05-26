@@ -534,32 +534,35 @@
     >
       <div class="container-fluid">
         <div class="row p-4 mb-4">
-          <div class="col-12 col-md-7 col-lg-6 col-xl-5 row-cols-1 mx-auto">
+          <div class="col-12 col-md-9 col-lg-9 col-xl-7 row-cols-1 mx-auto">
             <div class="input-group mb-3" id="searchForm">
-              <button
-                class="btn btn-pink dropdown-toggle"
-                type="button"
-                data-bs-toggle="dropdown"
-                aria-expanded="false"
+              <span
+                class="input-group-text btn-pink text-light"
+                id="basic-addon1"
+                >Vrsta:</span
               >
-                Vrsta
-              </button>
-              <ul class="dropdown-menu">
-                <li class="dropdown-item">Svi</li>
+              <select class="form-control" id="dropdownFestivalType">
+                <option selected value="Svi">Svi</option>
                 <hr class="dropdown-divider" />
-                <li class="dropdown-item">Muzički</li>
-                <li class="dropdown-item">Umetnički</li>
-                <li class="dropdown-item">Filmski</li>
-                <li class="dropdown-item">Gastronomski</li>
-                <li class="dropdown-item">Edukativni</li>
-              </ul>
+                <option value="Muzički">Muzički</option>
+                <option value="Umetnički">Umetnički</option>
+                <option value="Filmski">Filmski</option>
+                <option value="Gastronomski">Gastronomski</option>
+                <option value="Edukativni">Edukativni</option>
+              </select>
               <input
                 id="FestSearchInput"
                 class="form-control"
                 type="search"
                 placeholder="Ime festivala..."
               />
-              <button class="btn btn-pink" type="submit">Search</button>
+              <button
+                class="btn btn-pink"
+                type="button"
+                id="FestivalButtonSearch"
+              >
+                Search
+              </button>
             </div>
           </div>
         </div>

@@ -9,7 +9,12 @@ const organisatorPhone = document.getElementById("organisatorPhone");
 const organisatorEmail = document.getElementById("organisatorEmail");
 const organisatorLogo = document.getElementById("organisatorLogo");
 
+let festivalsCode;
+const searchButton = document.getElementById("FestivalButtonSearch");
+
 getOrganisatorsInfo();
+
+searchButton.addEventListener("click", () => searchFestivals(festivalsCode));
 
 function getOrganisatorId() {
   let params = new URLSearchParams(window.location.search);
@@ -32,7 +37,8 @@ function getOrganisatorsInfo() {
         organisatorPhone.innerHTML = organisator.kontaktTelefon;
         organisatorEmail.innerHTML = organisator.email;
         organisatorLogo.src = organisator.logo;
-        getAllOrganisatorsFestivals(organisator.festivali);
+        festivalsCode = organisator.festivali;
+        getAllOrganisatorsFestivals(festivalsCode);
       } else {
         window.location.href = "greska.html?error=" + this.status;
       }
@@ -76,7 +82,6 @@ function getAllOrganisatorsFestivals(festivalsCode) {
 
         for (let id in festivals) {
           let festival = festivals[id];
-          console.log(festival);
           festivalRow.innerHTML += `
             <div class="col mb-4">
                 <div class="card border-4 rounded-3">
@@ -96,6 +101,56 @@ function getAllOrganisatorsFestivals(festivalsCode) {
                 </div>
             </div>
             `;
+        }
+      } else {
+        window.location.href = "greska.html?error=" + this.status;
+      }
+    }
+  };
+  request.open("GET", `${fireBaseUrl}festivali/${festivalsCode}.json`);
+  request.send();
+}
+
+function searchFestivals(festivalsCode) {
+  let FestivalType = document.getElementById("dropdownFestivalType").value;
+  console.log(FestivalType);
+  let FestivalName = document.getElementById("FestSearchInput").value;
+  let request = new XMLHttpRequest();
+  request.onreadystatechange = function () {
+    if (this.readyState == 4) {
+      if (this.status == 200) {
+        festivalRow.innerHTML = "";
+        let festivals = JSON.parse(request.responseText);
+
+        for (let id in festivals) {
+          let festival = festivals[id];
+          if (FestivalType === "Svi") {
+            FestivalType = festival.tip;
+          }
+          if (
+            festival.naziv.toLowerCase().includes(FestivalName.toLowerCase()) &&
+            festival.tip === FestivalType
+          ) {
+            festivalRow.innerHTML += `
+            <div class="col mb-4">
+                <div class="card border-4 rounded-3">
+                    <a href="festival.html?festivalId=${id}">
+                        <div class="ratio ratio-16x9">
+                            <img
+                            class="card-img-top w-100 border-bottom-thick-pink"
+                            src="${festival.slike}"
+                            />
+                        </div>
+                        <div class="p-3 fw-normal text-center d-flex align-items-center justify-content-center"
+                            style="min-height: 100px"
+                            >
+                            <h4>${festival.naziv}</h4>
+                        </div>
+                    </a>
+                </div>
+            </div>
+            `;
+          }
         }
       } else {
         window.location.href = "greska.html?error=" + this.status;
